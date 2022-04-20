@@ -7,8 +7,8 @@ class Contenedor {
         this.fileName = nombreArchivo;
         this.contenido = [];
 
-        //  obtengo el contenido del archivo
-        //    this.leerArchivo();
+    //  obtengo el contenido del archivo
+    //    this.leerArchivo();
 
     }
 
@@ -16,9 +16,13 @@ class Contenedor {
 
         try {
 
-            const data = await fs.promises.readFile(this.fileName);
-            const dataJson = JSON.parse(data);
-            this.contenido.push(dataJson);
+            if (fs.existsSync(this.fileName)) {
+                const data = await fs.promises.readFile(this.fileName,'utf-8');
+                const dataJson = JSON.parse(data);
+                this.contenido.push(dataJson);
+            }else{
+                this.escribirArchivo();
+            }
 
         } catch (error) {
             console.log('Error al leer el archivo', error);
@@ -26,7 +30,9 @@ class Contenedor {
     }
 
     async escribirArchivo() {
+
         try {
+            console.log('contenido en escribir archivo',this.contenido);
             await fs.promises.writeFile(this.fileName, JSON.stringify(this.contenido))
         } catch (error) {
             console.log('Error al escribir el archivo', error);
@@ -49,11 +55,15 @@ class Contenedor {
 
     save(producto) {
 
+        console.log('contenido',this.contenido);
+
         //  obtengo ultimo id + 1
         const id = this.contenido.length + 1;
         producto["id"] = id;
+        console.log('producto',producto);
         //  actualizo el contenido con el nuevo producto
         this.contenido.push(producto);
+        console.log('contenido Producto',this.contenido);
         //  Grabo el archivo nuevamente
         this.escribirArchivo();
 
@@ -62,8 +72,16 @@ class Contenedor {
 
     deleteById(id) {
 
-        let contenidoNuevo = this.contenido.filter(element => element.id !== id)
+        console.log('contenido actual',this.contenido);
+
+        let contenidoNuevo = []
+        contenidoNuevo = this.contenido.filter(element => element.id !== id)
+        console.log('nuevo contenido',contenidoNuevo);
+
+        this.contenido = [];
         this.contenido = contenidoNuevo;
+        console.log('contenido actual',this.contenido);
+
         this.escribirArchivo();
     }
 

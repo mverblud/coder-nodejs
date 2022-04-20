@@ -1,6 +1,6 @@
 const Contenedor = require('./contenedor')
 
-const contenedor = new Contenedor('./productos.txt');
+const contenedor = new Contenedor('./productos.json');
 
 contenedor.save({
     title: "escuadra",
@@ -16,8 +16,8 @@ contenedor.save({
 
 contenedor.save({
     title: "compas",
-    price: 111.20,
-    thumbnail: "regla.jpg"
+    price: 11.23,
+    thumbnail: "compas.jpg"
 });
 
 console.log('Todos los Productos:',contenedor.getAll());
@@ -25,6 +25,6 @@ console.log('producto ID 1:',contenedor.getById(1));
 console.log('producto ID 2:',contenedor.getById(2));
 console.log('No existe ID 5:',contenedor.getById(5));
 contenedor.deleteById(3);
-console.log('No existe ID 3:',contenedor.getById(3));
-contenedor.deleteAll();
-console.log('Todos los Productos vacio:',contenedor.getAll());
+//console.log('No existe ID 3:',contenedor.getById(3));
+//contenedor.deleteAll();
+//console.log('Todos los Productos vacio:',contenedor.getAll());
