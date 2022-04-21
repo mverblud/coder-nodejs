@@ -1,5 +1,7 @@
 const fs = require('fs');
 
+// Clase donde se realiza lectura/escritura por cada metodo.
+
 class Conteiner {
 
     constructor(nombreArchivo) {

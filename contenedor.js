@@ -1,5 +1,7 @@
 const fs = require('fs');
 
+// Clase donde se realiza lectura por unica vez cuando se instancia la clase.
+
 class Contenedor {
 
     constructor(nombreArchivo) {
