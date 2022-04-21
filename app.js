@@ -22,6 +22,11 @@ const cargoArch = async () => {
         thumbnail: "compas.jpg"
     });
 
+//  otra Forma
+//    const contenido = await conteiner.getAll();
+//    await conteiner.deleteById(3);
+//    console.log('otra forma',contenido );
+
     conteiner.getAll().then(contenido => console.log('Todos los Productos:', contenido));
     conteiner.getById(2).then(producto => console.log('producto 2 :', producto));
     conteiner.getById(5).then(producto => console.log('no existe 5 :', producto));
