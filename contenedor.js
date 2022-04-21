@@ -8,7 +8,7 @@ class Contenedor {
         this.contenido = [];
 
     //  obtengo el contenido del archivo
-        await this.leerArchivo()
+        this.leerArchivo()
 
     }
 
