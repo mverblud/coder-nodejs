@@ -7,8 +7,8 @@ class Contenedor {
         this.fileName = nombreArchivo;
         this.contenido = [];
 
-        //  obtengo el contenido del archivo
-    //    this.leerArchivo();
+    //  obtengo el contenido del archivo
+        this.leerArchivo();
 
     }
 
@@ -20,8 +20,6 @@ class Contenedor {
                 const data = await fs.promises.readFile(this.fileName, 'utf-8');
                 const dataJson = JSON.parse(data);
                 this.contenido.push(dataJson);
-            } else {
-                this.escribirArchivo();
             }
 
         } catch (error) {
@@ -39,7 +37,9 @@ class Contenedor {
     }
 
     getAll() {
-        return this.contenido;
+        this.leerArchivo().then(data => {
+            console.log(data)
+        });
     }
 
     getById(id) {
@@ -52,7 +52,7 @@ class Contenedor {
         return producto
     }
 
-    save(producto) {
+    async save(producto) {
 
         //  obtengo ultimo id + 1
         const id = this.contenido.length + 1;
@@ -60,7 +60,7 @@ class Contenedor {
         //  actualizo el contenido con el nuevo producto
         this.contenido.push(producto);
         //  Grabo el archivo nuevamente
-        this.escribirArchivo(this.contenido);
+        await this.escribirArchivo(this.contenido);
 
         return `El id del objeto añadido es ${id}`
     }
