@@ -7,7 +7,7 @@ class Contenedor {
         this.fileName = nombreArchivo;
         this.contenido = [];
 
-    //  obtengo el contenido del archivo
+        //  obtengo el contenido del archivo
     //    this.leerArchivo();
 
     }
@@ -17,10 +17,10 @@ class Contenedor {
         try {
 
             if (fs.existsSync(this.fileName)) {
-                const data = await fs.promises.readFile(this.fileName,'utf-8');
+                const data = await fs.promises.readFile(this.fileName, 'utf-8');
                 const dataJson = JSON.parse(data);
                 this.contenido.push(dataJson);
-            }else{
+            } else {
                 this.escribirArchivo();
             }
 
@@ -29,11 +29,10 @@ class Contenedor {
         }
     }
 
-    async escribirArchivo() {
+    async escribirArchivo(contenido) {
 
         try {
-            console.log('contenido en escribir archivo',this.contenido);
-            await fs.promises.writeFile(this.fileName, JSON.stringify(this.contenido))
+            await fs.promises.writeFile(this.fileName, JSON.stringify(contenido))
         } catch (error) {
             console.log('Error al escribir el archivo', error);
         }
@@ -55,39 +54,28 @@ class Contenedor {
 
     save(producto) {
 
-        console.log('contenido',this.contenido);
-
         //  obtengo ultimo id + 1
         const id = this.contenido.length + 1;
         producto["id"] = id;
-        console.log('producto',producto);
         //  actualizo el contenido con el nuevo producto
         this.contenido.push(producto);
-        console.log('contenido Producto',this.contenido);
         //  Grabo el archivo nuevamente
-        this.escribirArchivo();
+        this.escribirArchivo(this.contenido);
 
         return `El id del objeto añadido es ${id}`
     }
 
     deleteById(id) {
 
-        console.log('contenido actual',this.contenido);
+        const contenidoNuevo = this.contenido.filter(element => element.id !== id)
+        this.escribirArchivo(contenidoNuevo);
 
-        let contenidoNuevo = []
-        contenidoNuevo = this.contenido.filter(element => element.id !== id)
-        console.log('nuevo contenido',contenidoNuevo);
-
-        this.contenido = [];
-        this.contenido = contenidoNuevo;
-        console.log('contenido actual',this.contenido);
-
-        this.escribirArchivo();
     }
 
     async deleteAll() {
-        this.contentido = this.contenido.splice(0, this.contenido.length)
-        this.escribirArchivo();
+        const contentido = [];
+        this.contenido = contentido
+        this.escribirArchivo(this.contenido);
     }
 
 }
