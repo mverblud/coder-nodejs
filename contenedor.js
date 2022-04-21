@@ -8,7 +8,7 @@ class Contenedor {
         this.contenido = [];
 
     //  obtengo el contenido del archivo
-        this.leerArchivo();
+        await this.leerArchivo()
 
     }
 
@@ -18,8 +18,8 @@ class Contenedor {
 
             if (fs.existsSync(this.fileName)) {
                 const data = await fs.promises.readFile(this.fileName, 'utf-8');
-                const dataJson = JSON.parse(data);
-                this.contenido.push(dataJson);
+                this.contenido = JSON.parse(data);
+                console.log(this.contenido);
             }
 
         } catch (error) {
@@ -37,9 +37,7 @@ class Contenedor {
     }
 
     getAll() {
-        this.leerArchivo().then(data => {
-            console.log(data)
-        });
+        return this.contenido;
     }
 
     getById(id) {
@@ -81,3 +79,36 @@ class Contenedor {
 }
 
 module.exports = Contenedor
+
+const contenedor = new Contenedor('./productosContenedor.json');
+
+const cargoArch = async () => {
+
+    await contenedor.save({
+        title: "escuadra",
+        price: 80.20,
+        thumbnail: "escuadra.jpg"
+    });
+
+    await contenedor.save({
+        title: "regla",
+        price: 141.23,
+        thumbnail: "regla.jpg"
+    });
+
+    await contenedor.save({
+        title: "compas",
+        price: 11.23,
+        thumbnail: "compas.jpg"
+    }); 
+
+/*     conteiner.getAll().then(contenido => console.log('Todos los Productos:', contenido));
+    conteiner.getById(2).then(producto => console.log('producto 2 :', producto));
+    conteiner.getById(5).then(producto => console.log('no existe 5 :', producto));
+    conteiner.deleteById(3).then(console.log('borro producto 3 :')); */
+//    conteiner.deleteAll().then('Todos los Productos vacio:');
+}
+
+//cargoArch();
+console.log(contenedor.getAll());
+console.log(contenedor.contenido); 
