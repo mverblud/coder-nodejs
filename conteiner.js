@@ -47,32 +47,31 @@ class Conteiner {
         return await this.leerArchivo();
     }
 
+    async getById(id) {
+
+        const contenido = await this.leerArchivo();
+
+        let producto = {}
+        producto = contenido.find(element => element.id == id);
+        if (!producto) {
+            producto = null
+        }
+        return producto
+    }
+
+    async deleteById(id) {
+
+        const contenido = await this.leerArchivo();
+        const contenidoNuevo = contenido.filter(element => element.id !== id)
+        await this.escribirArchivo(contenidoNuevo);
+
+    }
+
+    async deleteAll() {
+        const contenido = [];
+        await this.escribirArchivo(contenido);
+    }
+
 }
 
-const conteiner = new Conteiner('./productos.json');
-
-const cargoArch = async () => {
-
-    await conteiner.save({
-        title: "escuadra",
-        price: 80.20,
-        thumbnail: "escuadra.jpg"
-    });
-
-    await conteiner.save({
-        title: "regla",
-        price: 141.23,
-        thumbnail: "regla.jpg"
-    });
-
-    await conteiner.save({
-        title: "compas",
-        price: 11.23,
-        thumbnail: "compas.jpg"
-    });
-}
-
-cargoArch().then(() => {
-    conteiner.getAll().then(contenido => console.log(contenido))
-} );
-
+module.exports = Conteiner
