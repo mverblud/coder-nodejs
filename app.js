@@ -1,34 +1,41 @@
-const Contenedor = require('./contenedor')
+const http = require('http');
+const express = require('express');
 
-// Con clase contendor donde se realiza una sola lectura en el contructor de la clase
-const contenedor = new Contenedor('./productosContenedor.json');
+const mensaje = () => {
+    const hora = new Date().getHours();
 
-const cargoArchContenedor = () => {
-
-    contenedor.save({
-        title: "escuadra",
-        price: 80.20,
-        thumbnail: "escuadra.jpg"
-    });
-
-    contenedor.save({
-        title: "regla",
-        price: 141.23,
-        thumbnail: "regla.jpg"
-    });
-
-    contenedor.save({
-        title: "compas",
-        price: 11.23,
-        thumbnail: "compas.jpg"
-    });
-
+    if (hora >= 6 && hora <= 19) {
+        return `Buenos dias !! hora : ${hora} hs`
+    } else if (hora >= 13 && hora <= 19) {
+        return `Buenas Tardes! hora : ${hora} hs`
+    } else {
+        return `Buenas noches! hora : ${hora} hs`
+    }
 }
 
-cargoArchContenedor();
-console.log('Todos los productos',contenedor.getAll());
-console.log('Producto 1',contenedor.getById(1));
-console.log('Producto 2',contenedor.getById(2));
-console.log('Producto 3',contenedor.getById(3));
-contenedor.deleteById(2);
-//contenedor.deleteAll();
+/* const app = http.createServer((req, res) => {
+    res.end(mensaje());
+}); */
+
+/* const PORT = 8080;
+app.listen(8080);
+
+console.log(`servidor Http escucnado en el puerto ${PORT}`) */
+
+const app = express();
+const PORT = 8080;
+app.listen(PORT);
+console.log(`Servidor Http escuchando en el puerto ${PORT}`);
+
+app.get('/', (req, res) => {
+    res.send('<h1 style="color:blue">Bienvenido al servidor express </h1>')
+});
+
+let visitas = 0;
+app.get('/visitas', (req, res) => {
+    res.send(`La cantidad de visitas es ${++visitas}`)
+});
+
+app.get('/fyh', (req, res) => {
+    res.send({fyh: new Date().toLocaleDateString()})
+});
