@@ -1,6 +1,12 @@
-const http = require('http');
-const express = require('express');
+/* const http = require('http');
+const app = http.createServer((req, res) => {
+    res.end(mensaje());
+});
 
+const PORT = 8080;
+app.listen(8080);
+
+console.log(`servidor Http escucnado en el puerto ${PORT}`)
 const mensaje = () => {
     const hora = new Date().getHours();
 
@@ -11,16 +17,9 @@ const mensaje = () => {
     } else {
         return `Buenas noches! hora : ${hora} hs`
     }
-}
+} */
 
-/* const app = http.createServer((req, res) => {
-    res.end(mensaje());
-}); */
-
-/* const PORT = 8080;
-app.listen(8080);
-
-console.log(`servidor Http escucnado en el puerto ${PORT}`) */
+const express = require('express');
 
 const app = express();
 const PORT = 8080;
@@ -37,5 +36,14 @@ app.get('/visitas', (req, res) => {
 });
 
 app.get('/fyh', (req, res) => {
-    res.send({fyh: new Date().toLocaleDateString()})
+    res.send({ fyh: new Date().toLocaleDateString() })
+});
+
+// Desafio Clase 6
+app.get('/productos', (req, res) => {
+    res.send({ mensaje: 'devuelve array con todos los productos'})
+});
+
+app.get('/productoRandom', (req, res) => {
+    res.send({ mensaje: 'devuelve un producto random' })
 });

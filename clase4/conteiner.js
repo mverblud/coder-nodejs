@@ -79,7 +79,7 @@ class Conteiner {
 module.exports = Conteiner
 
 // Con clase conteiner donde se realiza lectura en cada metodo.
-const conteiner = new Conteiner('./productos.json');
+const conteiner = new Conteiner('./productosConteiner.json');
 
 const cargoArch = async () => {
 

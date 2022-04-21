@@ -1,7 +1,7 @@
 const Contenedor = require('./contenedor')
 
 // Con clase contendor donde se realiza una sola lectura en el contructor de la clase
-const contenedor = new Contenedor('./productosContenedor.json');
+const contenedor = new Contenedor('./productos.json');
 
 const cargoArchContenedor = () => {
 
