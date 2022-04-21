@@ -7,19 +7,18 @@ class Contenedor {
         this.fileName = nombreArchivo;
         this.contenido = [];
 
-    //  obtengo el contenido del archivo
+    //  obtengo el contenido del archivo al instanciar la clase
         this.leerArchivo()
 
     }
 
-    async leerArchivo() {
+    leerArchivo() {
 
         try {
 
             if (fs.existsSync(this.fileName)) {
-                const data = await fs.promises.readFile(this.fileName, 'utf-8');
+                const data = fs.readFileSync(this.fileName, 'utf-8');
                 this.contenido = JSON.parse(data);
-                console.log(this.contenido);
             }
 
         } catch (error) {
@@ -27,10 +26,10 @@ class Contenedor {
         }
     }
 
-    async escribirArchivo(contenido) {
+    escribirArchivo(contenido) {
 
         try {
-            await fs.promises.writeFile(this.fileName, JSON.stringify(contenido))
+            fs.writeFileSync(this.fileName, JSON.stringify(contenido))
         } catch (error) {
             console.log('Error al escribir el archivo', error);
         }
@@ -50,7 +49,7 @@ class Contenedor {
         return producto
     }
 
-    async save(producto) {
+    save(producto) {
 
         //  obtengo ultimo id + 1
         const id = this.contenido.length + 1;
@@ -58,7 +57,7 @@ class Contenedor {
         //  actualizo el contenido con el nuevo producto
         this.contenido.push(producto);
         //  Grabo el archivo nuevamente
-        await this.escribirArchivo(this.contenido);
+        this.escribirArchivo(this.contenido);
 
         return `El id del objeto añadido es ${id}`
     }
@@ -70,7 +69,7 @@ class Contenedor {
 
     }
 
-    async deleteAll() {
+    deleteAll() {
         const contentido = [];
         this.contenido = contentido
         this.escribirArchivo(this.contenido);
@@ -82,33 +81,32 @@ module.exports = Contenedor
 
 const contenedor = new Contenedor('./productosContenedor.json');
 
-const cargoArch = async () => {
+const cargoArch = () => {
 
-    await contenedor.save({
+    contenedor.save({
         title: "escuadra",
         price: 80.20,
         thumbnail: "escuadra.jpg"
     });
 
-    await contenedor.save({
+    contenedor.save({
         title: "regla",
         price: 141.23,
         thumbnail: "regla.jpg"
     });
 
-    await contenedor.save({
+    contenedor.save({
         title: "compas",
         price: 11.23,
         thumbnail: "compas.jpg"
-    }); 
+    });
 
-/*     conteiner.getAll().then(contenido => console.log('Todos los Productos:', contenido));
-    conteiner.getById(2).then(producto => console.log('producto 2 :', producto));
-    conteiner.getById(5).then(producto => console.log('no existe 5 :', producto));
-    conteiner.deleteById(3).then(console.log('borro producto 3 :')); */
-//    conteiner.deleteAll().then('Todos los Productos vacio:');
 }
 
-//cargoArch();
-console.log(contenedor.getAll());
-console.log(contenedor.contenido); 
+cargoArch();
+console.log('Todos los productos',contenedor.getAll());
+console.log('Producto 1',contenedor.getById(1));
+console.log('Producto 2',contenedor.getById(2));
+console.log('Producto 3',contenedor.getById(3));
+contenedor.deleteById(2);
+contenedor.deleteAll();
