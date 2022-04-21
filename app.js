@@ -1,37 +1,34 @@
-const Conteiner = require('./conteiner')
+const Contenedor = require('./contenedor')
 
-const conteiner = new Conteiner('./productos.json');
+// Con clase contendor donde se realiza una sola lectura en el contructor de la clase
+const contenedor = new Contenedor('./productosContenedor.json');
 
-const cargoArch = async () => {
+const cargoArchContenedor = () => {
 
-    await conteiner.save({
+    contenedor.save({
         title: "escuadra",
         price: 80.20,
         thumbnail: "escuadra.jpg"
     });
 
-    await conteiner.save({
+    contenedor.save({
         title: "regla",
         price: 141.23,
         thumbnail: "regla.jpg"
     });
 
-    await conteiner.save({
+    contenedor.save({
         title: "compas",
         price: 11.23,
         thumbnail: "compas.jpg"
     });
 
-//  otra Forma
-//    const contenido = await conteiner.getAll();
-//    await conteiner.deleteById(3);
-//    console.log('otra forma',contenido );
-
-    conteiner.getAll().then(contenido => console.log('Todos los Productos:', contenido));
-    conteiner.getById(2).then(producto => console.log('producto 2 :', producto));
-    conteiner.getById(5).then(producto => console.log('no existe 5 :', producto));
-    conteiner.deleteById(3).then(console.log('borro producto 3 :'));
-//    conteiner.deleteAll().then('Todos los Productos vacio:');
 }
 
-cargoArch();
+cargoArchContenedor();
+console.log('Todos los productos',contenedor.getAll());
+console.log('Producto 1',contenedor.getById(1));
+console.log('Producto 2',contenedor.getById(2));
+console.log('Producto 3',contenedor.getById(3));
+contenedor.deleteById(2);
+//contenedor.deleteAll();
