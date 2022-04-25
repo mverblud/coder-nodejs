@@ -23,6 +23,18 @@ const cargoArchContenedor = () => {
         thumbnail: "compas.jpg"
     });
 
+    contenedor.save({
+        title: "transportador",
+        price: 16.23,
+        thumbnail: "transportador.jpg"
+    });
+
+    contenedor.save({
+        title: "lapicera",
+        price: 1.23,
+        thumbnail: "lapicera.jpg"
+    });
+
 }
 
 cargoArchContenedor();
@@ -30,5 +42,5 @@ console.log('Todos los productos',contenedor.getAll());
 console.log('Producto 1',contenedor.getById(1));
 console.log('Producto 2',contenedor.getById(2));
 console.log('Producto 3',contenedor.getById(3));
-contenedor.deleteById(2);
+//contenedor.deleteById(2);
 //contenedor.deleteAll();
