@@ -12,12 +12,20 @@ const productoRandom = () => {
 }
 
 // Desafio Clase 6
-router.get('/', (req, res) => {
+/* router.get('/', (req, res) => {
     res.json(contenedor.getAll())
 });
 
 router.get('/random', (req, res) => {
     res.json(productoRandom())
+}); */
+
+router.post('/', (req, res) => {
+
+    const body = req.body;
+    console.log(body);
+
+    res.json(body)
 });
 
 module.exports = router;

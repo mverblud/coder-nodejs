@@ -23,16 +23,15 @@ class Server {
         this.app.use(morgan('dev'));
         // Lectura y Parseo
         this.app.use(express.json());
+        // Directorio publico
+        this.app.use(express.static('public'));
     }
 
     routes() {
-
         this.app.use(this.path.productos, require('../routes/productos'));
-
     }
 
     listen() {
-
         this.app.listen(this.port, () => {
             console.log('Servidor corriendo en el puerto ', this.port);
         })
