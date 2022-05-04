@@ -9,7 +9,7 @@ class Contenedor {
         this.fileName = nombreArchivo;
         this.contenido = [];
 
-    //  obtengo el contenido del archivo al instanciar la clase
+        //  obtengo el contenido del archivo al instanciar la clase
         this.leerArchivo()
 
     }
@@ -43,12 +43,13 @@ class Contenedor {
 
     getById(id) {
 
-        let producto = {}
-        producto = this.contenido.find(element => element.id == id);
-        if (!producto) {
-            producto = null
+        const producto = this.contenido.find(element => element.id == id);
+        if (producto) {
+            return producto
+        } else { 
+            return {error: 'producto no encontrado'}
         }
-        return producto
+
     }
 
     save(producto) {
@@ -60,15 +61,31 @@ class Contenedor {
         this.contenido.push(producto);
         //  Grabo el archivo nuevamente
         this.escribirArchivo(this.contenido);
+        return { id };
+    }
 
-        return `El id del objeto añadido es ${id}`
+    updateById(id, body) {
+
+        const { nombre, precio, imagen } = body;
+
+        //  obtengo el index y luego actualizo
+        const elementoIdx = this.contenido.findIndex((obj => obj.id == id));
+
+        this.contenido[elementoIdx].title = nombre;
+        this.contenido[elementoIdx].price = precio;
+        this.contenido[elementoIdx].thumbnail = imagen;
+
+        this.escribirArchivo(this.contenido);
+
+        return { msg: `${id} Ha sido actualizado` };
+
     }
 
     deleteById(id) {
 
-        const contenidoNuevo = this.contenido.filter(element => element.id !== id)
+        const contenidoNuevo = this.contenido.filter(element => element.id !== parseInt(id))
         this.escribirArchivo(contenidoNuevo);
-
+        return { msg: `${id} Ha sido Eliminado` };
     }
 
     deleteAll() {
