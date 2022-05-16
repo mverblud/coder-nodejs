@@ -1,6 +1,6 @@
 const express = require('express');
-const cors    = require('cors');
-const morgan  = require('morgan');
+const cors = require('cors');
+const morgan = require('morgan');
 
 class Server {
 
@@ -23,6 +23,7 @@ class Server {
         this.app.use(morgan('dev'));
         // Lectura y Parseo
         this.app.use(express.json());
+        this.app.use(express.urlencoded({ extended: true }));
         // Directorio publico
         this.app.use(express.static('public'));
     }

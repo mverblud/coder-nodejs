@@ -25,6 +25,7 @@ const obtenerProducto = (req = request, res = response) => {
 const crearProducto = (req, res = response) => {
 
     // obtengo del body solo lo que necesito
+    console.log(req.body);
     const { nombre, precio, imagen } = req.body;
 
     /* REVISAR CUANDO INVOCO DEL INDEX.HTML LLEGA TODO VACIO*/
