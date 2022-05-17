@@ -26,6 +26,7 @@ class Server {
         this.app.use(express.urlencoded({ extended: true }));
         // Directorio publico
         this.app.use(express.static('public'));
+
     }
 
     routes() {
