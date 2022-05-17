@@ -35,8 +35,12 @@ app.get('/productos', (req, res) => {
 
 app.post('/productos', (req, res) => {
     const producto = req.body;
-    productos.push(producto);
-    res.redirect('/productos');
+//  no dejo agregar productos vacio.
+    if (producto.lenght > 0) {
+        productos.push(producto);
+        res.redirect('/productos'); 
+    }
+
 })
 
 app.listen(8080, () => {
