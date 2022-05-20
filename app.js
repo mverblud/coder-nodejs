@@ -35,10 +35,10 @@ app.get('/productos', (req, res) => {
 
 app.post('/productos', (req, res) => {
     const producto = req.body;
-
-    productos.push(producto);
-    res.redirect('/productos'); 
-
+    if (producto = undefined) {
+        productos.push(producto);
+        res.redirect('/productos'); 
+    }
 })
 
 app.listen(8080, () => {
