@@ -12,7 +12,40 @@
 </head>
 
 <body>
-    <%-include('./partials/agregarProducto') %>
+
+    <div class="container px-1 py-1">
+        <h1>INGRESE PRODUCTOS</h1>
+        <hr/>
+        <form>
+            Nombre:<input class="form-control" type="text" name="nombre" id='nombreProducto'/>
+            Precio:<input class="form-control" type="number" name="precio" id='precio'/>
+            Imagen:<input class="form-control" type="text" name="imagen" id='imagen'/>
+        </form>
+        <button id='agregarProducto' class="btn btn-primary mt-2">Agregar</button>
+        <hr/>
+
+        <h1>VISTA PRODUCTOS</h1>
+        <hr />
+    
+        <p id="pProductos"></p>
+
+        <h1>CENTRO DE MENSAJES</h1>
+        <hr />
+
+        <form>
+            Nombre  :<input type='text' name='Nombre' class='form-control' autoComplete='off' id="nombre"/>
+            Mensaje :<input type='text' name='Texto' class='form-control'  autoComplete='off' id="texto"/>
+        </form>
+
+        <button class="btn btn-primary mt-3" id="button">Enviar</button>
+        <hr />
+    
+        <p id="parrafo"></p>
+    </div>
+
+    <script src="/socket.io/socket.io.min.js"></script>
+    <script src="/main.js"></script>
+
 </body>
 
 </html>
