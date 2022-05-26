@@ -1,7 +1,7 @@
 const { response, request } = require('express');
 
 const Contenedor = require('../models/contenedor')
-const contenedor = new Contenedor();
+const contenedor = new Contenedor('productos.json');
 
 const obtenerProductos = (req = request, res = response) => {
 
@@ -24,16 +24,17 @@ const obtenerProducto = (req = request, res = response) => {
 
 const crearProducto = (req, res = response) => {
 
-    // obtengo del body solo lo que necesito
-    console.log(req.body);
-    const { nombre, precio, imagen } = req.body;
-
-    /* REVISAR CUANDO INVOCO DEL INDEX.HTML LLEGA TODO VACIO*/
+    // obtengo del body solo lo que necesito.
+    const { nombre, descripcion, codigo, foto, precio, stock } = req.body;
 
     const producto = {
-        title: nombre,
-        price: precio,
-        thumbnail: imagen
+        timestamp: new Date().getTime(),
+        nombre,
+        descripcion,
+        codigo,
+        foto,
+        precio,
+        stock,
     }
 
     res.status(201).json(contenedor.save(producto))
@@ -44,9 +45,8 @@ const actualizarProducto = (req, res = response) => {
 
     //  obtengo id de params
     const { id } = req.params;
-    // obtengo del body solo lo que necesito
-    const body = req.body;
-    res.json(contenedor.updateById(id, body))
+    
+    res.json(contenedor.updateById(id, req.body))
 }
 
 const borrarProducto = (req, res = response) => {
