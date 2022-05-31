@@ -45,8 +45,32 @@ const actualizarProducto = (req, res = response) => {
 
     //  obtengo id de params
     const { id } = req.params;
-    
-    res.json(contenedor.updateById(id, req.body))
+    const { nombre, descripcion, codigo, foto, precio, stock } = req.body;
+
+    const productos = contenedor.getAll();
+
+    console.log(productos);
+
+    // obtengo el index y luego actualizo
+    const elementoIdx = productos.findIndex((e => e.id === parseInt(id)));
+
+    console.log(elementoIdx);
+
+    if (elementoIdx > -1) {
+        // actualizo producto
+        productos[elementoIdx].nombre = nombre;
+        productos[elementoIdx].descripcion = descripcion;
+        productos[elementoIdx].codigo = codigo;
+        productos[elementoIdx].foto = foto;
+        productos[elementoIdx].precio = precio;
+        productos[elementoIdx].stock = stock;
+
+        //  Grabo el archivo nuevamente
+        res.json(contenedor.update(productos));
+    } else {
+        res.json({ msg: `El ${id} no existe` });
+    }
+
 }
 
 const borrarProducto = (req, res = response) => {

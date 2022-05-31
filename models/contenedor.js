@@ -40,19 +40,19 @@ class Contenedor {
 
     getById(id) {
 
-        const producto = this.contenido.find(element => element.id == id);
-        return producto ? producto : { error: 'producto no encontrado' };
+        const contenido = this.contenido.find(element => element.id == id);
+        return contenido ? contenido : { error: 'no se encontro el id' };
 
     }
 
-    save(producto) {
+    save(contenido) {
 
         //  obtengo ultimo id + 1
         const id = this.contenido.length + 1;
-        producto["id"] = id;
+        contenido["id"] = id;
 
         //  actualizo el contenido con el nuevo producto
-        this.contenido.push(producto);
+        this.contenido.push(contenido);
 
         //  Grabo el archivo nuevamente
         this.escribirArchivo(this.contenido);
@@ -66,7 +66,7 @@ class Contenedor {
         // obtengo el index y luego actualizo
         const elementoIdx = this.contenido.findIndex((obj => obj.id === parseInt(id)));
 
-        if (!elementoIdx) {
+        if (elementoIdx > 0) {
             // actualizo producto
             this.contenido[elementoIdx].nombre = nombre;
             this.contenido[elementoIdx].descripcion = descripcion;
@@ -79,14 +79,27 @@ class Contenedor {
             this.escribirArchivo(this.contenido);
         }
 
-        return !elementoIdx ? { msg: `${id} Ha sido actualizado` } : { msg: `${id} No existe` };
+        return elementoIdx > 0 ? { msg: `${id} Ha sido actualizado` } : { msg: `${id} No existe` };
+    }
+
+    update(contenidoNuevo) {
+
+        //  Grabo el archivo nuevamente
+        this.escribirArchivo(contenidoNuevo);
+        return { msg: `Ha sido actualizado` };
     }
 
     deleteById(id) {
 
+        //  Verifico si existe
+        const encontre = this.contenido.find(e => e.id === parseInt(id));
+        if (encontre === undefined) {
+            return { msg: `${id} No existe` };
+        }
+
+        //  Si existe lo borro
         const contenidoNuevo = this.contenido.filter(element => element.id !== parseInt(id));
         this.escribirArchivo(contenidoNuevo);
-
         return { msg: `${id} Ha sido Eliminado` };
     }
 

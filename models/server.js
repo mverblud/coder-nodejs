@@ -6,9 +6,10 @@ class Server {
 
     constructor() {
         this.app = express();
-        this.port = 8080;
+        this.port = process.env.PORT;
         this.path = {
             productos: '/api/productos',
+            carrito  : '/api/carritos'
         }
         // Middlewares
         this.middlewares();
@@ -30,6 +31,7 @@ class Server {
 
     routes() {
         this.app.use(this.path.productos, require('../routes/productos'));
+        this.app.use(this.path.carrito,   require('../routes/carrito'));
     }
 
     listen() {
