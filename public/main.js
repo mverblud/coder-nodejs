@@ -33,7 +33,7 @@ buttonProducto.addEventListener('click', () => {
 
         const producto = {
             nombre: nombreProducto.value,
-            precio: texto.value,
+            precio: precio.value,
             imagen: imagen.value
         };
         socket.emit('productosCliente', producto)
