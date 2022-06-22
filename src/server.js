@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import productosRoutes from './routes/productosRoutes.js';
+import carritoRoutes from './routes/carritoRoutes.js';
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 
 /* Routes */
 app.use('/productos', productosRoutes)
+app.use('/carritos', carritoRoutes)
 
 const PORT = 8080;
 

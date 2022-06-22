@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 let productosDao;
+let carritoDao;
 
     switch (process.env.DB_NAME) {
 
@@ -11,12 +12,23 @@ let productosDao;
                 productosDao = new MongoDBProductos();
             });
 
+            import('./carrito/MongoDBCarritos.js').then(({ MongoDBCarritos }) => {
+                carritoDao = new MongoDBCarritos();
+            });
+
             break;
-            
+
+        case 'firebaseDB':
+        
+            import('./productos/FirebaseDBProductos.js').then(({ FirebaseDBProductos }) => {
+                productosDao = new FirebaseDBProductos();
+            });
+
+            break;
         default:
             console.log('Esta en default');
             break;
     }
 
 
-export {productosDao}
+export {productosDao,carritoDao}
