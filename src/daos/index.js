@@ -24,6 +24,10 @@ let carritoDao;
                 productosDao = new FirebaseDBProductos();
             });
 
+            import('./carrito/FirebaseDBCarritos.js').then(({ FirebaseDBCarritos }) => {
+                carritoDao = new FirebaseDBCarritos();
+            });
+
             break;
         default:
             console.log('Esta en default');
