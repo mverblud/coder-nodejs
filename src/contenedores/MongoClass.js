@@ -21,6 +21,7 @@ class MongoClass {
     }
 
     async create(obj) {
+        
         try {
             const newProducto = await this.collection.create(obj);
             return newProducto;

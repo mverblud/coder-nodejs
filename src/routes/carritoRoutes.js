@@ -13,9 +13,38 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
+
     try {
-        const createProducto = await api.create(req.body);
-        res.json(createProducto);
+        
+        const createCarrito = await api.create(req.body);
+        res.json(createCarrito);
+
+    } catch (error) {
+        console.log('error route', error);
+    }
+
+})
+
+router.delete('/:id', async (req, res) => {
+
+    const { id } = req.params;
+
+    try {
+        const deleteCarrito = await api.deleteById(id);
+        res.json(deleteCarrito);
+    } catch (error) {
+        console.log(error);
+    }
+
+})
+
+router.put('/:id', async (req, res) => {
+
+    const { id } = req.params;
+
+    try {
+        const updateCarrito = await api.updateById(id, req.body);
+        res.json(updateCarrito);
     } catch (error) {
         console.log(error);
     }
