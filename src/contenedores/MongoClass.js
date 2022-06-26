@@ -5,15 +5,28 @@ mongoose.connect(config.mongoDB.URL, config.mongoDB.options);
 
 class MongoClass {
 
-    constructor(collectionName, docSchema) {
-        this.collection = mongoose.model(collectionName, docSchema);
+    constructor(modelSchema) {
+        this.collection = modelSchema;
     }
 
-    async getAll() {
+    async getAll(limite = 5, desde = 0) {
         try {
 
-            const allProductos = await this.collection.find({});
-            return allProductos;
+        //  Devuelve Cantidad , Incluye paginado
+            const [total, objects] = await Promise.all([
+                this.collection.countDocuments({}),
+                this.collection.find({})
+                    .skip(Number(desde))
+                    .limit(Number(limite))
+            // Falta logar dinamimos entre los populate
+                //  Populate solo en carrito?        
+                //    .populate('productos', 'nombre')
+            ])
+
+            return {
+                total,
+                objects
+            };
 
         } catch (error) {
             throw new Error('error', error)
@@ -21,13 +34,13 @@ class MongoClass {
     }
 
     async create(obj) {
-        
+
         try {
             const newProducto = await this.collection.create(obj);
             return newProducto;
 
         } catch (error) {
-            throw new Error('error', error)
+            throw new Error('Error Create', error)
         }
     }
 

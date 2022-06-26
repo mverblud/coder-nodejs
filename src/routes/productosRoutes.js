@@ -4,11 +4,18 @@ import { productosDao as api } from '../daos/index.js';
 const router = new Router();
 
 router.get('/', async (req, res) => {
+
+    //  Paginado
+    const { limite, desde } = req.query;
+
     try {
-        const allProductos = await api.getAll();
-        res.json(allProductos);
+        const { total, objects: productos } = await api.getAll(limite, desde);
+        res.json({
+            total,
+            productos
+        });
     } catch (error) {
-        console.log(error);
+        console.log('Error Route', error);
     }
 })
 

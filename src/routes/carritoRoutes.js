@@ -4,9 +4,16 @@ import { carritoDao as api } from '../daos/index.js';
 const router = new Router();
 
 router.get('/', async (req, res) => {
+
+    //  Paginado
+    const { limite, desde } = req.query;
+
     try {
-        const allCarritos = await api.getAll();
-        res.json(allCarritos);
+        const { total, objects: carritos } = await api.getAll(limite, desde);
+        res.json({
+            total,
+            carritos
+        });
     } catch (error) {
         console.log(error);
     }
@@ -15,7 +22,7 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
 
     try {
-        
+
         const createCarrito = await api.create(req.body);
         res.json(createCarrito);
 
