@@ -115,3 +115,7 @@ app.set('views', './views');
 app.get('/', (req, res) => {
     res.render('index');
 });
+
+app.get('/producto-test', (req, res) => {
+    res.render('index');
+});
