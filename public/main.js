@@ -1,7 +1,11 @@
 const socket = io();
 
 // Chat
+const email = document.querySelector('#email');
 const nombre = document.querySelector('#nombre');
+const apellido = document.querySelector('#apellido');
+const edad = document.querySelector('#edad');
+const alias = document.querySelector('#alias');
 const texto = document.querySelector('#texto');
 const button = document.querySelector('#button');
 const parrafo = document.querySelector('#parrafo');
@@ -18,7 +22,14 @@ button.addEventListener('click', () => {
 
     if (nombre.value.trim().length >= 1 && texto.value.trim().length >= 1) {
         const message = {
-            author: nombre.value,
+            author: {
+                id: email.value,
+                nombre: nombre.value,
+                apellido: apellido.value,
+                edad: edad.value,
+                alias: alias.value
+
+            },
             text: texto.value
         };
 
@@ -45,7 +56,8 @@ buttonProducto.addEventListener('click', () => {
 // Recibo mensajes del servidor
 socket.on('messages', (messages) => {
 
-    parrafo.innerHTML = messages.map(mensaje => `Autor : ${mensaje.author} Mensaje : ${mensaje.text}`).join('<br>');
+    console.log(messages);
+    parrafo.innerHTML = messages.map(mensaje => `Email : ${mensaje.author.id} Nombre : ${mensaje.author.nombre} Mensaje : ${mensaje.text}`).join('<br>');
 
 });
 

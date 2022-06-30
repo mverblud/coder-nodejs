@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
+  "type": "commonjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node clase6/app.js"
@@ -26,8 +27,12 @@
     "knex": "^2.1.0",
     "morgan": "^1.10.0",
     "mysql": "^2.18.1",
+    "normalizr": "^3.6.2",
     "pug": "^3.0.2",
     "socket.io": "^4.5.1",
     "sqlite3": "^5.0.8"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^7.3.0"
   }
 }

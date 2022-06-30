@@ -1,11 +1,15 @@
-/* import { faker } from '@faker-js/faker/locale/es';
+const { faker } = require('@faker-js/faker/locale/es');
 
-export function generarUsuario() {
-    const usuario = {
-        nombre: faker.name.findName(),
-        email: faker.internet.email(),
-        website: faker.internet.url(),
-        imagen: faker.internet.avatar(),
+const generarProducto = () => {
+    const producto = {
+        nombre: faker.commerce.productName(),
+        descripcion: faker.commerce.productDescription(),
+        precio: faker.commerce.price(),
+        imagen: faker.image.imageUrl(),
     }
-    return usuario
-} */
+    return producto
+}
+
+module.exports = {
+    generarProducto
+}

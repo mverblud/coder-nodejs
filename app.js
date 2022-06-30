@@ -4,6 +4,7 @@ const express = require('express');
 const { Server: ioServer } = require('socket.io');
 const http = require('http');
 const { options } = require('./database/config');
+const {normalize, schema } = require('normalizr');
 
 const app = express();
 const httpServer = http.createServer(app);
@@ -25,6 +26,7 @@ const messages = [];
 const productos = [];
 
 const ContenedorDB = require('./models/contenedorBD');
+const { generarProducto } = require('./utils/mocksProductos');
 const productosDB = new ContenedorDB('productos', options.mysql);
 const messagesDB = new ContenedorDB('messages', options.sqlite);
 
@@ -47,9 +49,9 @@ productosDB.findAll()
     })
     .catch((err) => { console.log(err); throw err })
 
-messagesDB.deleteAll()
+/* messagesDB.deleteAll()
     .then(data => console.log(`se limpio BD : ${data}`))
-    .catch((err) => { console.log(err); throw err })
+    .catch((err) => { console.log(err); throw err }) */
 
 messagesDB.findAll()
     .then(rows => {
@@ -61,6 +63,8 @@ messagesDB.findAll()
                 text
             })
         }
+
+        console.log('donde?',messages);
 
     })
     .catch((err) => { console.log(err); throw err })
@@ -116,6 +120,14 @@ app.get('/', (req, res) => {
     res.render('index');
 });
 
-app.get('/producto-test', (req, res) => {
-    res.render('index');
+// Utilizacion de faker para mock de 5 productos
+app.get('/productotest', (req, res) => {
+
+    let productos = [];
+    for (let i = 0; i < 5; i++) {
+        const producto = generarProducto();
+        productos.push(producto);
+    }
+
+    res.json(productos);
 });
