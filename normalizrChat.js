@@ -1,5 +1,6 @@
 const { normalize, schema } = require('normalizr');
 const { inspect } = require('util');
+const { normalizarChat } = require('./utils/normalizarMessages');
 
 const dataOriginal =
 {
@@ -87,3 +88,5 @@ function print(objeto) {
 }
 
 print(normalizedMessages);
+
+normalizarChat(dataOriginal).then;
