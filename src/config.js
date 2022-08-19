@@ -1,6 +1,6 @@
 export default {
     mongoDB: {
-        URL: 'mongodb+srv://mverblud:OKsEHOlsWDvPBHej@mverblud.pawqn.mongodb.net/cursoCoder?retryWrites=true&w=majority',
+        URL: 'mongodb+srv://mverblud:5hThdzKSJwfC3baO@mverblud.pawqn.mongodb.net/coderSession?retryWrites=true&w=majority',
         options: {
             useNewUrlParser: true,
             useUnifiedTopology: true

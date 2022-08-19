@@ -1,4 +1,5 @@
 import admin from "firebase-admin";
+import logger from "../logger.js";
 //import serviceAccount from "../../cursocodenode-firebase-adminsdk-s436i-de2bc2b4d7.json"; 
 
 admin.initializeApp({
@@ -54,6 +55,7 @@ class FirebaseClass {
             return newProducto;
 
         } catch (error) {
+            logger.warn(error);
             console.log(error);
         }
     }

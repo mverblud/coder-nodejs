@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 dotenv.config();
+import logger from "../logger.js";
 
 let productosDao;
 let carritoDao;
@@ -30,6 +31,7 @@ let carritoDao;
 
             break;
         default:
+            logger.warn('Esta en default');
             console.log('Esta en default');
             break;
     }

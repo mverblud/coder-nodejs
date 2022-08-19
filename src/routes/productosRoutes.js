@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { productosDao as api } from '../daos/index.js';
+import logger from "../logger.js";
 
 const router = new Router();
 
@@ -16,6 +17,7 @@ router.get('/', async (req, res) => {
         });
     } catch (error) {
         console.log('Error Route', error);
+        logger.warn(error);
     }
 })
 
@@ -25,6 +27,7 @@ router.post('/', async (req, res) => {
         res.json(createProducto);
     } catch (error) {
         console.log(error);
+        logger.warn(error);
     }
 
 })
@@ -38,6 +41,7 @@ router.put('/:id', async (req, res) => {
         res.json(updateProducto);
     } catch (error) {
         console.log(error);
+        logger.warn(error);
     }
 
 })
@@ -51,6 +55,7 @@ router.delete('/:id', async (req, res) => {
         res.json(deleteProducto);
     } catch (error) {
         console.log(error);
+        logger.warn(error);
     }
 
 })

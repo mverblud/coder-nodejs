@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <title>Informacion </title>
+</head>
+
+<body class="container-fluid mt-2">
+    <header class="p-3 text-bg-dark">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <li><a href="#" class="nav-link px-2 text-white">Bienvenido <%= nombre %></a></li>
+                </ul>
+
+                <p></p>
+
+                <div class="text-end">
+                    <button type="button" class="btn btn-outline-light me-2" onclick="location.href='/logout'" >Logout</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container-fluid px-5 py-5">
+        <h1>PRODUCTOS</h1>
+        <% if(productos.length> 0) { %>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="table-dark" scope="col">Nombre</th>
+                        <th class="table-dark" scope="col">Precio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% productos.forEach(producto=> { %>
+                        <tr>
+                            <td>
+                                <%=producto.nombre %>
+                            </td>
+                            <td>
+                                <%=producto.precio %>
+                            </td>
+                        </tr>
+                        <%})%>
+                </tbody>
+            </table>
+            <% } else { %>
+                <div class="p-3 mb-2 bg-danger text-white">No se encontraron productos</div>
+                <% } %>
+    </div>
+
+</body>
+
+</html>

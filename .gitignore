@@ -1,3 +1,4 @@
 /node_modules
 productos.json
 carrito.json
+.env
