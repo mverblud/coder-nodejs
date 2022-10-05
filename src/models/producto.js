@@ -7,10 +7,10 @@ const ProductoSchema = mongoose.Schema({
     },
     descripcion: { type: String },
     codigo:{ type: String },
-    img: [{
+    img: {
         type: String,
         default: ''
-    }],
+    },
     precio: {
         type: Number,
         default: 0

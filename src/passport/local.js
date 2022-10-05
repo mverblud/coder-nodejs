@@ -1,18 +1,18 @@
 import passport from "passport";
 import { Strategy } from "passport-local";
 import bcrypt from 'bcryptjs';
-import nodemailer from 'nodemailer';
+//import nodemailer from 'nodemailer';
 
 import Usuarios from '../models/usuarios.js';
 
-const transporter = nodemailer.createTransport({
+/* const transporter = nodemailer.createTransport({
     host: process.env.HOST_MAIL,
     port: process.env.PORT_MAIL,
     auth: {
         user: process.env.USER_MAIL,
         pass: process.env.USER_PASSWORD
     }
-});
+}); */
 
 const LocalStrategy = Strategy;
 
@@ -41,9 +41,11 @@ passport.use('register', new LocalStrategy({
     usuarioNuevo.direccion = direccion;
     usuarioNuevo.telefono = telefono;
 
+    console.log(usuarioNuevo );
+
     await usuarioNuevo.save();
 
-    //  Enviar correo al Administrador
+/*     //  Enviar correo al Administrador
     const mailAdmin = 'm.verblud@naranjax.com';
 
     await transporter.sendMail({
@@ -53,7 +55,7 @@ passport.use('register', new LocalStrategy({
         html: `<h1>Nuevo Usuario </h1> 
         <p> Se agrego un nuevo usuario : ${nombre}, edad: ${edad}, email: ${email}, direccion: ${direccion}, telefono: ${telefono}</p>`
 
-    })
+    }) */
 
     done(null, usuarioNuevo);
 }
